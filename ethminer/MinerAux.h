@@ -688,7 +688,7 @@ private:
 				cout << "Warming up..." << endl;
 			else
 				cout << "Trial " << i << "... " << flush;
-			this_thread::sleep_for(chrono::seconds(i ? _trialDuration : _warmupDuration));
+			this_thread::sleep_for(std::chrono::seconds(i ? _trialDuration : _warmupDuration));
 
 			auto mp = f.miningProgress();
 			f.resetMiningProgress();
@@ -780,7 +780,7 @@ private:
 				f.resetMiningProgress();
 
 				cnote << "Mining on difficulty " << difficulty << " " << mp;
-				this_thread::sleep_for(chrono::milliseconds(1000));
+				this_thread::sleep_for(std::chrono::milliseconds(1000));
 				time++;
 			}
 			cnote << "Difficulty:" << difficulty << "  Nonce:" << solution.nonce.hex();
@@ -896,7 +896,7 @@ private:
 						f.setWork(current);
 						x_current.unlock();
 					}
-					this_thread::sleep_for(chrono::milliseconds(_recheckPeriod));
+					this_thread::sleep_for(std::chrono::milliseconds(_recheckPeriod));
 				}
 				cnote << "Solution found; Submitting to" << _remote << "...";
 				cnote << "  Nonce:" << solution.nonce.hex();
@@ -936,7 +936,7 @@ private:
 			{
 				if (m_maxFarmRetries > 0)
 				{
-					for (auto i = 3; --i; this_thread::sleep_for(chrono::seconds(1)))
+					for (auto i = 3; --i; this_thread::sleep_for(std::chrono::seconds(1)))
 						cerr << "JSON-RPC problem. Probably couldn't connect. Retrying in " << i << "... \r";
 					cerr << endl;
 				}
@@ -1024,7 +1024,7 @@ private:
 					else if (client.waitState() == MINER_WAIT_STATE_WORK)
 						minelog << "Waiting for work package...";
 				}
-				this_thread::sleep_for(chrono::milliseconds(m_farmRecheckPeriod));
+				this_thread::sleep_for(std::chrono::milliseconds(m_farmRecheckPeriod));
 			}
 		}
 		else if (m_stratumClientVersion == 2) {
@@ -1059,7 +1059,7 @@ private:
 					else if (client.waitState() == MINER_WAIT_STATE_WORK)
 						minelog << "Waiting for work package...";
 				}
-				this_thread::sleep_for(chrono::milliseconds(m_farmRecheckPeriod));
+				this_thread::sleep_for(std::chrono::milliseconds(m_farmRecheckPeriod));
 			}
 		}
 
